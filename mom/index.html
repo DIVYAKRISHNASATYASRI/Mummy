@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mom Birthday + Teacher’s Day Card</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffdee9, #b5fffc);
+    color: #333;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  header {
+    text-align: center;
+    padding: 20px 10px;
+    background: linear-gradient(90deg, #ffb6c1, #ffd700);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  header h1 { font-size: 2.2em; margin: 0; animation: fadeInDown 2s; }
+  header h2 { font-size: 1.2em; margin: 5px 0 0; animation: fadeInUp 2s; }
+  @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+  .grandpa-section {
+    position: relative;
+    text-align: center;
+    margin: 30px 0;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .grandpa-video {
+    width: 220px;
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(255,255,255,0.9);
+    animation: descend 6s ease-out forwards, floaty 6s ease-in-out infinite;
+    display: none;
+    z-index: 2;
+    position: relative;
+  }
+
+  .grandpa-video::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 40px 15px rgba(255, 255, 200, 0.6);
+    pointer-events: none;
+    animation: auraPulse 2s ease-in-out infinite alternate;
+  }
+  @keyframes auraPulse { from { box-shadow: 0 0 30px 10px rgba(255,255,200,0.4);} to { box-shadow:0 0 60px 20px rgba(255,255,200,0.8);} }
+  @keyframes descend { from { transform: translateY(-400px) scale(0.6); opacity:0;} to { transform: translateY(0) scale(1); opacity:1;} }
+  @keyframes floaty { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+
+  .heaven-rays {
+    position: absolute; top:50%; left:50%;
+    transform: translate(-50%, -50%);
+    width:500px; height:500px;
+    background: conic-gradient(from 0deg, rgba(255,255,255,0.4), transparent 20%);
+    border-radius:50%;
+    animation: spin 25s linear infinite;
+    z-index:0;
+  }
+  @keyframes spin { 0%{transform:translate(-50%, -50%) rotate(0deg);} 100%{transform:translate(-50%, -50%) rotate(360deg);} }
+
+  .cloud {
+    position:absolute; bottom:30px; width:180px; height:70px; background:rgba(255,255,255,0.9); border-radius:50%;
+    filter: blur(20px); animation: floatClouds 40s linear infinite; z-index:1;
+  }
+  .cloud:nth-child(2){ left:10%; animation-delay:5s; }
+  .cloud:nth-child(3){ left:40%; animation-delay:10s; }
+  .cloud:nth-child(4){ left:70%; animation-delay:20s; }
+  .cloud:nth-child(5){ left:85%; animation-delay:15s; }
+  @keyframes floatClouds { 0%{transform:translateX(-200px);} 100%{transform:translateX(100vw);} }
+
+  .sparkle {
+    position:absolute; width:6px; height:6px; background: radial-gradient(circle,#fff,rgba(255,255,255,0)); border-radius:50%;
+    animation: sparkleMove linear infinite; z-index:3; pointer-events:none;
+  }
+  @keyframes sparkleMove { 0%{transform:translate(0,0) scale(0.5); opacity:1;} 50%{transform:translate(30px,-60px) scale(1); opacity:0.6;} 100%{transform:translate(-30px,-100px) scale(0.5); opacity:0;} }
+
+  .angel { position:absolute; font-size:24px; animation: floatAngel linear infinite; z-index:3; pointer-events:none; }
+  @keyframes floatAngel { 0%{transform:translate(0,0) rotate(0deg); opacity:0;} 20%{opacity:1;} 50%{transform:translate(40px,-80px) rotate(180deg); opacity:0.8;} 100%{transform:translate(-40px,-150px) rotate(360deg); opacity:0;} }
+
+  .message-section { text-align:center; padding:20px 15px; }
+  .message-line { font-size:1.4em; margin:8px 0; opacity:0; transform:translateY(20px); animation: reveal 1s forwards; }
+  .message-line:nth-child(1){animation-delay:0.5s;}
+  .message-line:nth-child(2){animation-delay:1.5s;}
+  .message-line:nth-child(3){animation-delay:2.5s;}
+  .message-line:nth-child(4){animation-delay:3.5s;}
+  @keyframes reveal { to{opacity:1;transform:translateY(0);} }
+
+  .gallery { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; padding:20px; perspective:1200px; }
+  .gallery img { width:150px; height:300px; object-fit:cover; border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.3); transform-style:preserve-3d; animation:cardFloat 8s ease-in-out infinite; transition:transform 0.8s, box-shadow 0.8s; }
+  @keyframes cardFloat {0%,100%{transform:rotateY(0) rotateX(0) translateY(0);} 25%{transform:rotateY(10deg) rotateX(5deg) translateY(-5px);} 50%{transform:rotateY(-10deg) rotateX(-5deg) translateY(-10px);} 75%{transform:rotateY(5deg) rotateX(-10deg) translateY(-5px);}}
+  .gallery img:hover{transform:rotateY(180deg) scale(1.05); box-shadow:0 15px 35px rgba(255,215,0,0.8);}
+
+  footer { text-align:center; padding:15px; background:#ffb6c1; color:white; font-size:1em; }
+  .confetti { position:fixed; top:0; width:100%; height:100%; pointer-events:none; overflow:hidden; }
+  .confetti-piece { position:absolute; width:8px; height:15px; background-color:red; opacity:0.7; animation:fall 5s linear infinite; }
+  @keyframes fall { 0%{transform:translateY(-100%) rotate(0deg);} 100%{transform:translateY(100vh) rotate(360deg);} }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Happy Birthday Mom 🎂</h1>
+    <h2>and Happy Teacher’s Day 👩‍🏫❤️</h2>
+  </header>
+
+  <!-- Grandpa Heaven -->
+  <section class="grandpa-section">
+    <div class="heaven-rays"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <video class="grandpa-video" id="grandpaVideo" playsinline>
+      <source src="Untitled_video.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <section class="message-section">
+    <div class="message-line">To My First Teacher and Forever Guide,</div>
+    <div class="message-line">Your love is the lesson of life ❤️</div>
+    <div class="message-line">Your wisdom lights up my world ✨</div>
+    <div class="message-line">Wishing you joy, health & endless happiness 🎉</div>
+  </section>
+
+  <section class="gallery">
+    <img src="1.jpeg" alt="flowers">
+    <img src="3.jpeg" alt="birthday">
+    <img src="4.jpeg" alt="teacher">
+    <img src="5.jpeg" alt="cake">
+    <img src="2.jpeg" alt="love">
+  </section>
+
+  <footer>
+    With Love Always ❤️ — Your Child
+  </footer>
+
+  <div class="confetti"></div>
+
+  <!-- Hidden audio for automatic play -->
+  <audio id="songPlayer">
+    <source src="song.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    // Confetti
+    const confettiContainer = document.querySelector('.confetti');
+    for (let i = 0; i < 100; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti-piece');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.backgroundColor = `hsl(${Math.random()*360},100%,50%)`;
+      confetti.style.animationDuration = (Math.random()*3 + 2)+'s';
+      confetti.style.opacity = Math.random();
+      confettiContainer.appendChild(confetti);
+    }
+
+    // Sparkles around Grandpa
+    function createSparkles() {
+      const section = document.querySelector('.grandpa-section');
+      for(let i=0;i<20;i++){
+        const sparkle=document.createElement('div');
+        sparkle.className='sparkle';
+        sparkle.style.left=(50+Math.random()*100-50)+'px';
+        sparkle.style.top=(50+Math.random()*100-50)+'px';
+        sparkle.style.animationDuration=(2+Math.random()*2)+'s';
+        section.appendChild(sparkle);
+      }
+    }
+    createSparkles();
+
+    // Angels around Grandpa
+    function createAngels() {
+      const section = document.querySelector('.grandpa-section');
+      const angels=['😇','👼','😇','👼','😇'];
+      angels.forEach((emoji,i)=>{
+        const angel=document.createElement('div');
+        angel.className='angel';
+        angel.textContent=emoji;
+        angel.style.left=(550+i*60)+'px';
+        angel.style.top=(50+i*10)+'px';
+        angel.style.animationDuration=(4+Math.random()*3)+'s';
+        section.appendChild(angel);
+      });
+    }
+    createAngels();
+
+    // Play video after wishes, then song automatically
+    window.addEventListener('load',()=>{
+      const video=document.getElementById('grandpaVideo');
+      const song=document.getElementById('songPlayer');
+      setTimeout(()=>{
+        video.style.display='block';
+        video.play();
+      },4000); // wait for wishes
+
+      video.addEventListener('ended',()=>{
+        song.play();
+      });
+    });
+  </script>
+</body>
+</html>
